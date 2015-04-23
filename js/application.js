@@ -1,5 +1,6 @@
 $(document).ready(function() { 
 
+  listAllRequest();
 //faketwitter buttons
   $(document).on('click','.signup-button', function(){
     signupRequest();
@@ -19,7 +20,11 @@ $(document).ready(function() {
   });
   
   $(document).on('click','.listButton', function(){
+    if ($('.contactInfo').val() =="") {
+      alert("Please enter contact info!")
+    } else {
     listRequest();
+    }
   });
   
   $(document).on('click','.listAllButton', function(){
@@ -104,11 +109,6 @@ $(document).ready(function() {
       //in sign in method, backend geernates cookie, we are creating cookie, so don't need for xhrFields and withCredenitals true.
       success: function(response) {
        console.log("User log in request successfully sent to backend.", response);
-        //$('.login-username').val("nice");
-        //$('.login-password').val("awesome");
-      //  window.location = "/listingpage.html";
-        // listAllRequest();
-       // postLoginStatus();
       }
     }) 
   }
@@ -121,13 +121,13 @@ $(document).ready(function() {
       data: {
         listing: {
           fritix: $('.friTix').val() == "" ? null : $('.friTix').val(),
-          sattix: $('.satTix').val() == "" ? null : 1,
-          suntix: $('.sunTix').val() == "" ? null : 1,
+          sattix: $('.satTix').val() == "" ? null : $('.satTix').val(),
+          suntix: $('.sunTix').val() == "" ? null : $('.sunTix').val(),
           friprice: $('.friPrice').val() == "" ? null : $('.friPrice').val(),
-          satprice: $('.satPrice').val() == "" ? null : 1,
-          sunprice: $('.sunPrice').val() == "" ? null : 1,
-         // contactinfo: $('.contactInfo').val() == "" ? null : 1,
-          remarks: $('.remarks').val() == "" ? null : 1
+          satprice: $('.satPrice').val() == "" ? null : $('.satPrice').val(),
+          sunprice: $('.sunPrice').val() == "" ? null : $('.sunPrice').val(),
+          contactinfo: $('.contactInfo').val() == "" ? null : $('.contactInfo').val(),
+          remarks: $('.remarks').val() == "" ? null : $('.remarks').val()
         }      
       },
       xhrFields: { 
@@ -142,7 +142,7 @@ $(document).ready(function() {
         $('.friPrice').val(""),
         $('.satPrice').val(""),
         $('.sunPrice').val(""),
-        //$('.contactInfo').val(""),
+        $('.contactInfo').val(""),
         $('.remarks').val(""),
         listAllRequest();
         }
@@ -157,12 +157,63 @@ $(document).ready(function() {
       dataType: "JSON",
       success: function(response) {
         console.log("Great listing success", response);
-        $('#all-posts > tbody').text(''); 
+        $('#all-posts').text(''); 
         response.forEach(function (post) {
-          $('#all-posts > tbody').append(
-          "<tr>" + "<td>" + "fritix: "  + post.fritix + "</td>" + "</tr>" + "<tr>" + "<td>" + "sattix: " + post.sattix + "</td>"+ "</tr>" + "<tr>" + "<td>" + "suntix: " + post.suntix + "</td>" + "</tr>" + "<tr>" + "<td>" + "friprice: "  + post.friprice + "</td>" +" </tr>" + "<tr>" + "<td>" + "satprice: "   + post.satprice + "</td>"+ "</tr>" + "<tr>" + "<td>" + "sunprice: "   + post.sunprice + "</td>"+ "</tr>" + "<tr>" + "<td>" + "date posted: "   + post.dateposted + "</td>"+ "</tr>" + "<tr>" + "<td>" + "seller: "   + post.username + "</td>"+ "</tr>" + "<tr>" + "<td>" + "remarks: "   + post.remarks + "</td>"+ "</tr>" + "<tr>" + "<td>" + "</td>" + "</tr>"+ "<tr>" + "<td>" + "</td>" + "</tr>" );         }); }
+          $('#all-posts').append("<li>" + "date posted: " + post.dateposted + "</li>" + "<li>" + "fri tix available: "  + post.fritix + "</li>" + "<li>" + "sat tix available: " + post.sattix + "</li>"+ "<li>" + "sun tix available: " + post.suntix + "</li>" + "<li>" + "fri price (HKD): "  + post.friprice + "</li>" + "</li>" + "<li>" + "sat price (HKD): "   + post.satprice + "</li>"+ "<li>" + "sun price (HKD): "   + post.sunprice + "</li>"+  "<li>" + "seller username: "   + post.username + "</li>" + "<li>" + "contact info: : " + post.contactinfo + "</li>" + "<li>" + "remarks: "   + post.remarks + "</li>"+ "<li>" + "***" +"</li>"+ "<li>" + "***" +"</li>");        
+        }); 
+      } 
+    })
+  }
+
+// original:
+// $('#all-posts > tbody').append("<tr>" + "<td>" + "fri tix available: "  + post.fritix + "</td>" + "</tr>" + "<tr>" + "<td>" + "sat tix available: " + post.sattix + "</td>"+ "</tr>" + "<tr>" + "<td>" + "sun tix available: " + post.suntix + "</td>" + "</tr>" + "<tr>" + "<td>" + "fri price (HKD): "  + post.friprice + "</td>" +" </tr>" + "<tr>" + "<td>" + "sat price (HKD): "   + post.satprice + "</td>"+ "</tr>" + "<tr>" + "<td>" + "sun price (HKD): "   + post.sunprice + "</td>"+ "</tr>" + "<tr>" + "<td>" + "date posted: "   + post.dateposted + "</td>"+ "</tr>" + "<tr>" + "<td>" + "seller username: "   + post.username + "</td>"+ "</tr>"+ "<tr>" + "<td>" + "contact info: : " + post.contactinfo + "</td>"+ "</tr>"  + "<tr>" + "<td>" + "remarks: "   + post.remarks + "</td>"+ "</tr>" + "<tr>" + "<td>" + "</td>" + "</tr>"+ "<tr>" + "<td>" + "</td>" + "</tr>" );
+
+  //search request from harryquotes
+  function getRequest() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/listings/search/' +  $('.search-value').val(),
+      dataType: "JSON",
+      success: function(response) {
+        console.log("Great success", response);
+        $('#all-posts').text(''); 
+        response.forEach(function (post) { 
+
+          var text  = "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "<li>" + "***" +"</li>";
+              text += "<li>" + "***" +"</li>";
+          $('#all-posts').append(text);         
+        });
+      }
     }) 
   }
+
+  function deleteRequest() {
+    $.ajax({
+      type: "DELETE",
+      url: 'http://localhost:3002/listings/' + $('.delete-value').val(),    
+      error: function(xhr, textStatus, errorThrown){
+        alert("Deletion Error!");
+      },
+      success: function(response) {
+          $('.delete-value').val("");
+          listAllRequest();
+          console.log("Great delete success!", response);
+      }
+    })
+  }
+
+
+
 
                 // var listing = { 
                 //  // "user_id": ObjectId(session.user_id),
@@ -249,14 +300,6 @@ $(document).ready(function() {
    $('.search-div, .list-div, .add-div').hide();
    $('.delete-div').show();
  })
-
-//awesome video pill
-  $('.awesome-div').hide();  
-  $(document).on('click','.awesomeBut', function() {
-   $('.awesome-div').toggle();
- })
-
-
 
 
  })

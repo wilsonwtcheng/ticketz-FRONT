@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content=""> 
     <title>ticketz</title>
+    <link href='http://fonts.googleapis.com/css?family=Allura' rel='stylesheet' type='text/css'>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 <!--     <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet"> -->
     <link href="css/custom.css" rel="stylesheet">
@@ -20,25 +21,24 @@
   <body>
 
 
-    <h1>Sell Yo 7's Tickets <!-- <img src="https://media.licdn.com/mpr/mpr/shrink_200_200/p/2/005/030/112/33baa87.jpg" alt="The official harryQuote icon" class="img-circle" style="width:64px;height:64px; "> --></h1>
+    <h1>Buy & Sell 7's Tix <img src="http://www.babylonlions.com/images/Orange-Raffle-Tickets.jpg" alt="Ticketz icon" class="img-circle" style="width:64px;height:64px; "></h1>
    
     <ul class="nav nav-tabs">
       <li role="presentation" class="listPillBut"><a href="#">Listings</a></li>
       <li role="presentation" class="searchPillBut"><a href="#">Search</a></li>
       <li role="presentation" class="addPillBut"><a href="#">Sell</a></li>
       <li role="presentation" class="profileBut"><a href="#">Profile</a></li>
-      <!-- <li role="presentation" class="deletePillBut"><a href="#">Delete</a></li> -->
+      <li role="presentation" class="deletePillBut"><a href="#">Delete</a></li>
     </ul>
 
 
       <div class="list-div">
-        <h3>See All Listings!</h3>
+<!--         <h3>See All Listings!</h3>
         <button class="btn btn-default listAllButton btn btn-primary" type="button">List!</button>
-      </div>
-      </div>
+ -->      </div>
 
       <div class="search-div">
-        <h3>Search For A Quote!</h3>
+        <h3>Search For A Ticket!</h3>
         <div class="input-group">
           <input type="text" class="form-control search-value" placeholder="Search stuff here...">
           <span class="input-group-btn">
@@ -55,8 +55,8 @@
         <input type="number" class="form-control friPrice" placeholder="Enter selling price (HKD) per Fri ticket...">
         <input type="number" class="form-control satPrice" placeholder="Enter selling price (HKD) per Sat ticket...">
         <input type="number" class="form-control sunPrice" placeholder="Enter selling price (HKD) per Sun ticket...">
-        <input type="number" class="form-control contactInfo" placeholder="Enter contact info (please specify type e.g. phone, email, whatsapp, etc)">
-        <input type="number" class="form-control remarks" placeholder="Enter any other remarks...">
+        <input type="text" class="form-control contactInfo" placeholder="Enter contact info (please specify type e.g. phone, email, whatsapp, etc)">
+        <input type="text" class="form-control remarks" placeholder="Enter any other remarks...">
         <button class="btn btn-default listButton" type="button">Go!</button>
         </div>
       </div>
@@ -73,28 +73,23 @@
       <br>
 
     <div class="database-box">
-      <h2>Database</h2>
+      <!-- <h2>Database</h2> -->
+      <ul id="all-posts">
+        
+      </ul>
       <div class="table-responsive">
-      <table id="all-posts" class="table table-condensed table-bordered table-hover" >
+      <!-- <table id="all-posts" class="table table-condensed table-bordered table-hover" >
         <thead>
           <tr>
-            <th>Listings</th>
+            <th>Current Listings</th>
           </tr>
         </thead>
         <tbody>
         </tbody>
-      </table>
+      </table> -->
       </div>
     </div>
     <br>
-
-    <ul class="nav nav-tabs">
-      <li role="presentation" class="awesomeBut"><a href="#">Surprise</a></li>
-    </ul>
-
-      <div class="embed-responsive embed-responsive-4by3 awesome-div">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/v/7--C6Qb-JAs"></iframe>
-      </div>
 
 <br><br><br>
 
