@@ -1,5 +1,6 @@
 $(document).ready(function() { 
 
+  lastRefresh();
   listAllRequest();
 //faketwitter buttons
   $(document).on('click','.signup-button', function(){
@@ -16,14 +17,14 @@ $(document).ready(function() {
 
 //harry quote buttons
   $(document).on('click','.searchButton', function(){
-    getRequest();
+    searchRequest();
   });
   
   $(document).on('click','.listButton', function(){
     if ($('.contactInfo').val() =="") {
       alert("Please enter contact info!")
     } else {
-    listRequest();
+    listingRequest();
     }
   });
   
@@ -36,7 +37,6 @@ $(document).ready(function() {
     deleteRequest();
   });
 
-  
   // $(document).on('click','.listButton', function(){
   //   listAllRequest();
   // });
@@ -70,6 +70,16 @@ $(document).ready(function() {
     $('.loginStatus').append("<p>Status: Logged in</p>");
   }
 
+  function lastRefresh() {
+    var timeText = "<li>" + "<span class='property'>Page last refreshed: </span>"+ new Date + "</li>";
+    $('.lastRefresh').append(timeText);
+  }
+
+  function lastUpdate() {
+    var updateTimeText = "<li>" + "<span class='property'>Last posting made: </span>"+ new Date + "</li>";
+    $('.lastUpdate').append(updateTimeText); 
+  }
+
 //login request for non-first time login
   function loginRequest() {
     $.ajax({
@@ -88,6 +98,9 @@ $(document).ready(function() {
       //in sign in method, backend geernates cookie, we are creating cookie, so don't need for xhrFields and withCredenitals true.
       success: function(response) {
        console.log("User log in request successfully sent to backend.", response);
+
+       // TAKE OUT ALL THE SIGN IN OR LOGIN BOXES FROM "PROFILE TAB"
+       // REPLACE WITH LOGOUT BUTTON
       }
     }) 
   }
@@ -109,12 +122,13 @@ $(document).ready(function() {
       //in sign in method, backend geernates cookie, we are creating cookie, so don't need for xhrFields and withCredenitals true.
       success: function(response) {
        console.log("User log in request successfully sent to backend.", response);
+       // **********hide login status, show profile2**********
       }
     }) 
   }
 
-//post request from FAKE TWITTER
-  function listRequest() {
+//listing request
+  function listingRequest() {
     $.ajax({
       type: "POST",
       url: 'http://localhost:3002/listings',
@@ -136,6 +150,7 @@ $(document).ready(function() {
       dataType: "JSON",
       success: function(response) {
         console.log("Great success", response);
+        lastUpdate();
         $('.friTix').val(""),
         $('.satTix').val(""),
         $('.sunTix').val(""),
@@ -159,7 +174,6 @@ $(document).ready(function() {
         console.log("Great listing success", response);
         $('#all-posts').text(''); 
         response.forEach(function (post) {
-
           var text  = "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
               text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
               text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
@@ -171,16 +185,14 @@ $(document).ready(function() {
               text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
               text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
               text += "<li>" + "***" +"</li>";
-              text += "<li>" + "***" +"</li>";
           $('#all-posts').append(text);         
-
           }); 
       } 
     })
   }
 
-  //search request from harryquotes
-  function getRequest() {
+  //search request 
+  function searchRequest() {
     $.ajax({
       type: "GET",
       url: 'http://localhost:3002/listings/search/' +  $('.search-value').val(),
@@ -189,7 +201,6 @@ $(document).ready(function() {
         console.log("Great success", response);
         $('#all-posts').text(''); 
         response.forEach(function (post) { 
-
           var text  = "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
               text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
               text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
@@ -283,32 +294,58 @@ $(document).ready(function() {
     })
   }
 
+// am i logged in request
+//or just send a login request and see what happens?
+  function loginStatus() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/sessions/{logged}',
+      dataType: "JSON",
+      success: function(response) {
+       console.log("Great success, user is logged in.", response);
+       // window.location = "/index.html";
+
+      }
+     // }
+    })
+  }
+
+
 //pills
- $('.add-div, .delete-div, .search-div').hide();
+ $('.add-div, .delete-div, .search-div, .profile-div').hide();
 
  $('.listPillBut').css("background","#EFEFEC");
 
  $(document).on('click','.searchPillBut', function() {
-   $('.delete-div, .list-div, .add-div').hide();
+   $('.delete-div, .list-div, .add-div, .profile-div').hide();
    $('.listPillBut').css("background","transparent");
    $('.search-div').show();
  })
 
  $(document).on('click','.addPillBut', function() {
    // $(this).attr("class", "active");
-   $('.search-div, .delete-div, .list-div').hide();
+   $('.search-div, .delete-div, .list-div, .profile-div').hide();
    $('.listPillBut').css("background","transparent");
    $('.add-div').show();
  })
 
  $(document).on('click','.listPillBut', function() {
-   $('.search-div, .add-div, .delete-div').hide();
+   $('.search-div, .add-div, .delete-div, .profile-div').hide();
    $('.listPillBut').css("background","transparent");
    $('.list-div').show();
  })
 
+//profile button needs a bit more work. check if user is logged in.
+$(document).on('click','.profilePillBut', function() {
+   $('.search-div, .delete-div, .list-div, .add-div').hide();
+   $('.listPillBut').css("background","transparent");
+   $('.profile-div').show();
+   //if user is authenticated, show current stats.
+   //if user is not authenticated, show sign-up boxes.
+ })
+
  $(document).on('click','.deletePillBut', function() {
-   $('.search-div, .list-div, .add-div').hide();
+   $('.search-div, .list-div, .add-div, .profile-div').hide();
    $('.delete-div').show();
  })
 

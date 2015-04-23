@@ -6,7 +6,7 @@ body {
   width: 90%;
 }
 
-.search-div, .add-div, .list-div, .delete-div {
+.search-div, .add-div, .list-div, .profile-div, .delete-div {
   background-color: #EFEFEC;
   padding: 5px 20px 20px 20px;
   border-radius: 5px;
@@ -35,6 +35,9 @@ table {
     padding: 50px;*/
 }
 
+h1 {
+     vertical-align: bottom;
+}
 #all-posts > li {
   /*background-color: blue;*/
 }
@@ -42,7 +45,16 @@ table {
 #all-posts {
   list-style: none;
   padding-left: 15px;
+}
 
+.no-bullet {
+  padding-left:0px;
+  list-style: none;
+}
+
+.lastRefresh {
+/*  padding-left:0px;
+  list-style: none;*/
 }
 
 .nav>li>a {
@@ -55,6 +67,7 @@ table {
 
 .property {
   font-weight: bold;
+  list-style: none;
   /*color: red;*/
   /*font-family: 'Allura', cursive;*/
 }

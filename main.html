@@ -20,22 +20,39 @@
 
   <body>
 
+  <div>
+    <h1>Welcome to Ticketz. <img src="http://www.babylonlions.com/images/Orange-Raffle-Tickets.jpg" alt="Ticketz icon" class="img-circle" style="width:64px;height:64px; "></h1>
+  </div>  
 
-    <h1>Buy & Sell 7's Tix <img src="http://www.babylonlions.com/images/Orange-Raffle-Tickets.jpg" alt="Ticketz icon" class="img-circle" style="width:64px;height:64px; "></h1>
-   
+
+
+  <div class="row"> 
+    <div class="col-sm-8"> 
+      <div>
+        <h4><i>Your Last-minute Gateway to Buy & Sell HK Rugby 7's Tix</i></h4>
+      </div>
+    </div> 
+    <div class="col-sm-4">
+      <div class="col-sm-12 lastRefresh no-bullet">
+      </div>
+      <div class="col-sm-12 lastUpdate no-bullet">
+      </div>
+    </div>
+  </div>
+  
+<br>
+
     <ul class="nav nav-tabs">
       <li role="presentation" class="listPillBut"><a href="#">Listings</a></li>
       <li role="presentation" class="searchPillBut"><a href="#">Search</a></li>
       <li role="presentation" class="addPillBut"><a href="#">Sell</a></li>
-      <li role="presentation" class="profileBut"><a href="#">Profile</a></li>
+      <li role="presentation" class="profilePillBut"><a href="#">Profile</a></li>
       <li role="presentation" class="deletePillBut"><a href="#">Delete</a></li>
     </ul>
 
 
       <div class="list-div">
-<!--         <h3>See All Listings!</h3>
-        <button class="btn btn-default listAllButton btn btn-primary" type="button">List!</button>
- -->      </div>
+      </div>
 
       <div class="search-div">
         <h3>Search For A Ticket!</h3>
@@ -58,7 +75,45 @@
         <input type="text" class="form-control contactInfo" placeholder="Enter contact info (please specify type e.g. phone, email, whatsapp, etc)">
         <input type="text" class="form-control remarks" placeholder="Enter any other remarks...">
         <button class="btn btn-default listButton" type="button">Go!</button>
+      </div>
+
+      <div class="profile-div">
+        <h3>To make a Listing, please log in or sign up. </h3>
+      
+      <div class="row"> 
+        <div class="col-sm-6"> 
+          <div class="col-xs-12 boxStyle">
+            <strong> Existing user? </strong>Log in
+            <input type="text" class="form-control login-username" placeholder="Email or username">
+            <div class="input-group">
+            <input type="password" class="form-control login-password" placeholder="Password">
+            <span class="input-group-btn">
+              <button class="btn btn-primary login-button" type="button">Log in</button>
+            </span>            
+            </div>
+             <input type="checkbox" aria-label="...">
+              Remember me . Forgot password?
+          </div>
+        </div> 
+        <div class="col-sm-6">
+          <div class="col-xs-12 boxStyle">
+            <strong> New to ticketz? </strong>Sign up
+            <input type="text" class="form-control signup-username" placeholder="Full name">
+            <input type="text" class="form-control signup-email" placeholder="Email">
+            <input type="password" class="form-control signup-password" placeholder="Password">
+            <span class="input-group-btn">
+              <button class="btn btn-warning signup-button" type="button">Sign up for Ticketz</button>
+            </span>
+          </div>
         </div>
+      </div>  
+      
+        <!-- <div class="input-group ">
+          <input type="text" class="form-control delete-value" placeholder="Input ID for quote deletion here...">
+          <span class="input-group-btn">
+            <button class="btn btn-default deleteButton" type="button">Go!</button>
+          </span>
+        </div> -->
       </div>
 
       <div class="delete-div">
@@ -71,26 +126,12 @@
         </div>
       </div>
 
-
-
-
     <div class="database-box">
       <!-- <h2>Database</h2> -->
-      <ul id="all-posts">
-        
+      <ul id="all-posts">        
       </ul>
-      <div class="table-responsive">
-      <!-- <table id="all-posts" class="table table-condensed table-bordered table-hover" >
-        <thead>
-          <tr>
-            <th>Current Listings</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table> -->
-      </div>
     </div>
+
     <br>
 
 </body>
