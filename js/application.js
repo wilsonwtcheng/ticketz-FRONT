@@ -120,10 +120,10 @@ $(document).ready(function() {
       url: 'http://localhost:3002/listings',
       data: {
         listing: {
-          fritix: $('.friTix').val() == "" ? null : 1,
+          fritix: $('.friTix').val() == "" ? null : $('.friTix').val(),
           sattix: $('.satTix').val() == "" ? null : 1,
           suntix: $('.sunTix').val() == "" ? null : 1,
-          friprice: $('.friPrice').val() == "" ? null : 1,
+          friprice: $('.friPrice').val() == "" ? null : $('.friPrice').val(),
           satprice: $('.satPrice').val() == "" ? null : 1,
           sunprice: $('.sunPrice').val() == "" ? null : 1,
          // contactinfo: $('.contactInfo').val() == "" ? null : 1,
