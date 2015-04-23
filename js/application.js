@@ -159,14 +159,25 @@ $(document).ready(function() {
         console.log("Great listing success", response);
         $('#all-posts').text(''); 
         response.forEach(function (post) {
-          $('#all-posts').append("<li>" + "date posted: " + post.dateposted + "</li>" + "<li>" + "fri tix available: "  + post.fritix + "</li>" + "<li>" + "sat tix available: " + post.sattix + "</li>"+ "<li>" + "sun tix available: " + post.suntix + "</li>" + "<li>" + "fri price (HKD): "  + post.friprice + "</li>" + "</li>" + "<li>" + "sat price (HKD): "   + post.satprice + "</li>"+ "<li>" + "sun price (HKD): "   + post.sunprice + "</li>"+  "<li>" + "seller username: "   + post.username + "</li>" + "<li>" + "contact info: : " + post.contactinfo + "</li>" + "<li>" + "remarks: "   + post.remarks + "</li>"+ "<li>" + "***" +"</li>"+ "<li>" + "***" +"</li>");        
-        }); 
+
+          var text  = "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "<li>" + "***" +"</li>";
+              text += "<li>" + "***" +"</li>";
+          $('#all-posts').append(text);         
+
+          }); 
       } 
     })
   }
-
-// original:
-// $('#all-posts > tbody').append("<tr>" + "<td>" + "fri tix available: "  + post.fritix + "</td>" + "</tr>" + "<tr>" + "<td>" + "sat tix available: " + post.sattix + "</td>"+ "</tr>" + "<tr>" + "<td>" + "sun tix available: " + post.suntix + "</td>" + "</tr>" + "<tr>" + "<td>" + "fri price (HKD): "  + post.friprice + "</td>" +" </tr>" + "<tr>" + "<td>" + "sat price (HKD): "   + post.satprice + "</td>"+ "</tr>" + "<tr>" + "<td>" + "sun price (HKD): "   + post.sunprice + "</td>"+ "</tr>" + "<tr>" + "<td>" + "date posted: "   + post.dateposted + "</td>"+ "</tr>" + "<tr>" + "<td>" + "seller username: "   + post.username + "</td>"+ "</tr>"+ "<tr>" + "<td>" + "contact info: : " + post.contactinfo + "</td>"+ "</tr>"  + "<tr>" + "<td>" + "remarks: "   + post.remarks + "</td>"+ "</tr>" + "<tr>" + "<td>" + "</td>" + "</tr>"+ "<tr>" + "<td>" + "</td>" + "</tr>" );
 
   //search request from harryquotes
   function getRequest() {
