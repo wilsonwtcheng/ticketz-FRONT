@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content=""> 
+    <title>hapi-twitter</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+<!--     <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet"> -->
+    <link href="css/custom.css" rel="stylesheet">
+    
+    <script src="js/jquery-2.1.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/application.js"></script>
+  </head>
+
+  <body>
+    <div class="row">
+      <div class="col-xs-10"> 
+      </div>
+      <div class="col-xs-2 loginStatus">
+      </div>
+    </div> 
+
+    <div class="vert-offset-top-3"> 
+    </div>
+
+    <div class="database-box vert-offset-top-3">
+      
+      <h2>Welcome to your Page</h2>
+      <div class="table-responsive">
+        <div class="col-xs-12 boxStyle">
+          <input type="text" class="form-control newTweet" placeholder="What's happening?">
+          <div class="input-group">
+          <span class="input-group-btn">
+            <button class="btn btn-primary tweet-button" type="button">Tweet!</button>
+            <button class="btn btn-warning list-all-button" type="button">List All!</button>
+          </span>            
+          </div>
+        </div>
+
+
+<!-- List all table starts here (PRESENTATION PURPOSE) ********************************************-->
+
+      <table id="all-posts" class="table table-condensed table-striped" >
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tweet</th>
+            <th>User ID</th>
+         </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+<!-- List all table starts here  (PRESENTATION PURPOSE)********************************************-->
+
+
+      </div>
+    </div>
+
+
+      <button class="btn btn-danger logout-button" type="button">Log out</button>
+
+
+</body>
+</html>
+

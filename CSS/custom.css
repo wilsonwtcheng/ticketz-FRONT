@@ -1,0 +1,100 @@
+
+/*below from harry quote*/
+
+body {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.search-div, .add-div, .list-div, .delete-div {
+  background-color: #EFEFEC;
+  padding: 5px 20px 20px 20px;
+  border-radius: 5px;
+}
+
+.database-box {
+  padding: 20px;
+  border-radius: 5px;
+/*  background-color: #EFEFEC;
+*/}
+
+/*below from faketwitter*/
+
+.vert-offset-top-3{
+    margin-top: 3em;
+}
+
+.vert-offset-top-1{
+    margin-top: 1em;
+}
+
+table, tr, td {
+/*    border: 1px solid red;
+    border-collapse: collapse;
+    padding: 50px;*/
+}
+
+.property {
+  font-weight: bold;
+}
+
+/*//below from array default db
+
+body {
+  white-space: pre;
+  font-family: monospace;
+}
+
+
+.type-null {
+  color: gray;
+}
+
+.type-boolean {
+  color: firebrick;
+}
+
+.type-number {
+  color: blue;
+}
+
+.type-string {
+  color: green;
+}
+
+.callback-function {
+  color: gray;
+}
+
+.collapser:after {
+  content: "-";
+}
+
+.collapsed > .collapser:after {
+  content: "+";
+}
+
+.ellipsis:after {
+  content: " … ";
+}
+
+.collapsible {
+  margin-left: 2em;
+}
+
+.hoverable {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 2px;
+}
+
+.hovered {
+  background-color: rgba(235, 238, 249, 1);  
+}
+
+.collapser {
+  padding-right: 6px;
+  padding-left: 6px;
+}*/
