@@ -1,8 +1,13 @@
 $(document).ready(function() { 
 
   lastRefresh();
+
   listAllRequest();
-//faketwitter buttons
+
+  $(document).on('click','.refreshButton', function(){
+    reloadRequest();
+  });
+  
   $(document).on('click','.signup-button', function(){
     signupRequest();
   });
@@ -15,9 +20,36 @@ $(document).ready(function() {
     logOutRequest();
   });
 
-//harry quote buttons
-  $(document).on('click','.searchButton', function(){
-    searchRequest();
+  $(document).on('click','.searchFridayButton', function(){
+    searchFridayRequest();
+  });
+
+  $(document).on('click','.searchSaturdayButton', function(){
+    searchSaturdayRequest();
+  });
+  
+  $(document).on('click','.searchSundayButton', function(){
+    searchSundayRequest();
+  });
+
+  $(document).on('click','.friSearchBut', function(){
+    allFridayRequest();
+  });
+
+  $(document).on('click','.satSearchBut', function(){
+    allSaturdayRequest();
+  });
+
+  $(document).on('click','.sunSearchBut', function(){
+    allSundayRequest();
+  });
+
+  $(document).on('click','.searchRemarksButton', function(){
+    searchRemarksRequest();
+  });
+
+  $(document).on('click','.searchUserButton', function(){
+    searchUsersRequest();
   });
   
   $(document).on('click','.listButton', function(){
@@ -101,7 +133,7 @@ $(document).ready(function() {
        $('#removeLogin').empty();
        //$('#removeLogin').remove();
       
-       var addLogoutBut = '<h4>'+"You are currently logged in!"+'<h4>'+ '<br>'+'<div class="row">'+ '<button class="btn btn-danger logout-button" type="button">'+ "Log out" +'</button>'+'</div>';    
+       var addLogoutBut = '<h4>'+"You are now logged in!"+'<h4>'+ '<br>'+'<div class="row">'+ '<button class="btn btn-danger logout-button" type="button">'+ "Log out" +'</button>'+'</div>';    
       
        $('#removeLogin').append(addLogoutBut);
 
@@ -179,7 +211,7 @@ $(document).ready(function() {
         $('#all-posts').text(''); 
         response.forEach(function (post) {
           var text  = "<div class='jumbotron postBox well well-sm'>";
-              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + Date(post.dateposted) + "</li>";
               text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
               text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
               text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
@@ -196,31 +228,19 @@ $(document).ready(function() {
     })
   }
 
-          // var text  = "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
-          //     text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
-          //     text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
-          //     text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
-          //     text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
-          //     text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
-          //     text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
-          //     text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
-          //     text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
-          //     text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
-          //     text += "<li>" + "***" +"</li>";
- 
-
-
-  //search request 
-  function searchRequest() {
+  //search by remarks request 
+  function searchRemarksRequest() {
     $.ajax({
       type: "GET",
-      url: 'http://localhost:3002/listings/search/' +  $('.search-value').val(),
+      url: 'http://localhost:3002/listings/search/remarks/' +  $('.search-remarks-value').val(),
       dataType: "JSON",
       success: function(response) {
         console.log("Great success", response);
         $('#all-posts').text(''); 
+        $('#all-posts').append('<h4>'+"Here are your search results:"+'<h4>');         
         response.forEach(function (post) { 
-          var text  = "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + Date(post.dateposted) + "</li>";
               text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
               text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
               text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
@@ -230,8 +250,211 @@ $(document).ready(function() {
               text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
               text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
               text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
-              text += "<li>" + "***" +"</li>";
-              text += "<li>" + "***" +"</li>";
+              text += "</div>";
+          $('#all-posts').append(text);         
+        });
+      }
+    }) 
+  }
+
+  //search by users request 
+  function searchUsersRequest() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/listings/search/users/' +  $('.search-users-value').val(),
+      dataType: "JSON",
+      success: function(response) {
+        console.log("Great success", response);
+        $('#all-posts').text(''); 
+        $('#all-posts').append('<h4>'+"Here are your search results:"+'<h4>');         
+        response.forEach(function (post) { 
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "</div>";
+          $('#all-posts').append(text);         
+        });
+      }
+    }) 
+  }
+
+
+  //search by friday request 
+  function searchFridayRequest() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/listings/search/friday/' +  $('.search-friday-value').val(),
+      dataType: "JSON",
+      success: function(response) {
+        console.log("Great success", response);
+        $('#all-posts').text(''); 
+        $('#all-posts').append('<h4>'+"Here are your search results:"+'<h4>');         
+        response.forEach(function (post) { 
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "</div>";
+          $('#all-posts').append(text);         
+        });
+      }
+    }) 
+  }
+
+  //search by saturday request 
+  function searchSaturdayRequest() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/listings/search/saturday/' +  $('.search-friday-value').val(),
+      dataType: "JSON",
+      success: function(response) {
+        console.log("Great success", response);
+        $('#all-posts').text(''); 
+        $('#all-posts').append('<h4>'+"Here are your search results:"+'<h4>');         
+        response.forEach(function (post) { 
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "</div>";
+          $('#all-posts').append(text);         
+        });
+      }
+    }) 
+  }
+
+    //search by sunday request 
+  function searchSundayRequest() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/listings/search/sunday/' +  $('.search-friday-value').val(),
+      dataType: "JSON",
+      success: function(response) {
+        console.log("Great success", response);
+        $('#all-posts').text(''); 
+        $('#all-posts').append('<h4>'+"Here are your search results:"+'<h4>');         
+        response.forEach(function (post) { 
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "</div>";
+          $('#all-posts').append(text);         
+        });
+      }
+    }) 
+  }
+
+  //show all friday request 
+  function allFridayRequest() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/listings/search/friday',
+      dataType: "JSON",
+      success: function(response) {
+        console.log("Great success", response);
+        $('#all-posts').text(''); 
+        $('#all-posts').append('<h4>'+"Here are your search results:"+'<h4>');         
+        response.forEach(function (post) { 
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "</div>";
+          $('#all-posts').append(text);         
+        });
+      }
+    }) 
+  }
+
+  //show all saturday request 
+  function allSaturdayRequest() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/listings/search/saturday',
+      dataType: "JSON",
+      success: function(response) {
+        console.log("Great success", response);
+        $('#all-posts').text(''); 
+        $('#all-posts').append('<h4>'+"Here are your search results:"+'<h4>');         
+        response.forEach(function (post) { 
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "</div>";
+          $('#all-posts').append(text);         
+        });
+      }
+    }) 
+  }
+
+  //show all sunday request 
+  function allSundayRequest() {
+    $.ajax({
+      type: "GET",
+      url: 'http://localhost:3002/listings/search/sunday',
+      dataType: "JSON",
+      success: function(response) {
+        console.log("Great success", response);
+        $('#all-posts').text(''); 
+        $('#all-posts').append('<h4>'+"Here are your search results:"+'<h4>');         
+        response.forEach(function (post) { 
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+              text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+              text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+              text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+              text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+              text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+              text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+              text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+              text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+              text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+              text += "</div>";
           $('#all-posts').append(text);         
         });
       }
@@ -315,6 +538,9 @@ $(document).ready(function() {
   //    $('.profileTwo-div').show();
   //  })
 
+function reloadRequest() {
+  window.location.reload();
+}
 
 
 
