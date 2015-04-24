@@ -3,6 +3,20 @@ $(document).ready(function() {
   lastRefresh();
 
   listAllRequest();
+  
+  loginStatus(function(response){
+    if (response.authenticated) {
+      console.log("logged in");
+          $('#removeLogin').empty();
+      var addLogoutBut = '<h4>'+"You are now logged in!"+'<h4>'+ '<br>'+'<div class="row">'+ '<button class="btn btn-danger logout-button" type="button">'+ "Log out" +'</button>'+'</div>';    
+       $('#removeLogin').append(addLogoutBut);
+       $('.search-div, .delete-div, .list-div, .profile-div').hide();
+       $('.listPillBut').css("background","transparent");
+       $('.add-div').show();
+    } else {
+      console.log("Show login window");
+    }
+  });
 
   $(document).on('click','.refreshButton', function(){
     reloadRequest();
@@ -68,7 +82,7 @@ $(document).ready(function() {
         listingRequest();
       } else {
         console.log("NOT logged in");
-        alert("you have to be logged in to post!");
+        alert("You have to be logged in to post! Please to go Profile to sign up or login");
       }
     });
   });
@@ -112,7 +126,6 @@ $(document).ready(function() {
     }) 
   }
 
-
   function lastRefresh() {
     var timeText = "<li>" + "<span class='property'>Page last refreshed: </span>"+ new Date + "</li>";
     $('.lastRefresh').append(timeText);
@@ -140,12 +153,10 @@ $(document).ready(function() {
       },
       success: function(response) {
        console.log("User log in request successfully sent to backend.", response);
-       alert("Log in successful!")
+       //alert(response.message)
        $('#removeLogin').empty();
        //$('#removeLogin').remove();
-      
        var addLogoutBut = '<h4>'+"You are now logged in!"+'<h4>'+ '<br>'+'<div class="row">'+ '<button class="btn btn-danger logout-button" type="button">'+ "Log out" +'</button>'+'</div>';    
-      
         $('#removeLogin').append(addLogoutBut);
         $('.search-div, .delete-div, .list-div, .profile-div').hide();
         $('.listPillBut').css("background","transparent");
@@ -173,12 +184,14 @@ $(document).ready(function() {
       success: function(response) {
         console.log("User log in request successfully sent to backend.", response);
         alert("Successful sign up, redirecting to sell page!");
+        //
         $('#removeLogin').empty();
         var addLogoutBut = '<h4>'+"You are now logged in!"+'<h4>'+ '<br>'+'<div class="row">'+ '<button class="btn btn-danger logout-button" type="button">'+ "Log out" +'</button>'+'</div>';    
          $('#removeLogin').append(addLogoutBut);
          $('.search-div, .delete-div, .list-div, .profile-div').hide();
          $('.listPillBut').css("background","transparent");
          $('.add-div').show();
+         //
       }
     }) 
   }
@@ -534,8 +547,12 @@ $(document).ready(function() {
       // error: function(xhr, textStatus, errorThrown){
       //   alert("Deletion Error!");
       // },
+      xhrFields: { 
+      withCredentials: true 
+      },
       success: function(response) {
        console.log("Great success, user logged OUT.", response);
+       alert("Log out successful!")
        window.location = "/index.html";
 
       }
@@ -565,24 +582,11 @@ $(document).ready(function() {
   //      // window.location = "/index.html";
   //     })
   // }
-  function whichProfile() {
-    if()
-  }
-****
+  // function whichProfile() {
+  //   if()
+  // }
 
-  $(document).on('click','.listButton', function(){
 
-    loginStatus(function(response){
-      if (response.authenticated) {
-        console.log("logged in");
-        listingRequest();
-      } else {
-        console.log("NOT logged in");
-        alert("you have to be logged in to post!");
-      }
-    });
-  });
-****
 
   function loginStatus(callback) {
     $.ajax({
