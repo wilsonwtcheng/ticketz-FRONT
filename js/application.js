@@ -8,6 +8,13 @@ $(document).ready(function() {
     reloadRequest();
   });
   
+  $(document).on('click','.loginStatusButton', function(){
+    loginStatus(function(response){
+      console.log(response);
+      alert(response.message)
+    });
+  });
+
   $(document).on('click','.signup-button', function(){
     signupRequest();
   });
@@ -52,14 +59,21 @@ $(document).ready(function() {
     searchUsersRequest();
   });
   
+  //****
   $(document).on('click','.listButton', function(){
-    if ($('.contactInfo').val() =="") {
-      alert("Please enter contact info!")
-    } else {
-    listingRequest();
-    }
+
+    loginStatus(function(response){
+      if (response.authenticated) {
+        console.log("logged in");
+        listingRequest();
+      } else {
+        console.log("NOT logged in");
+        alert("you have to be logged in to post!");
+      }
+    });
   });
-  
+  //***
+
   $(document).on('click','.listAllButton', function(){
     listAllRequest();
   });
@@ -92,15 +106,12 @@ $(document).ready(function() {
       dataType: "JSON",
       success: function(response) {
         console.log("Great success, user signed up", response);
-        alert("Sign up successful!");
+        //alert("Sign up successful!");
         loginRequestTwo();
       }
     }) 
   }
 
-  function postLoginStatus() {
-    $('.loginStatus').append("<p>Status: Logged in</p>");
-  }
 
   function lastRefresh() {
     var timeText = "<li>" + "<span class='property'>Page last refreshed: </span>"+ new Date + "</li>";
@@ -127,15 +138,18 @@ $(document).ready(function() {
       xhrFields: { 
       withCredentials: true 
       },
-      //in sign in method, backend geernates cookie, we are creating cookie, so don't need for xhrFields and withCredenitals true.
       success: function(response) {
        console.log("User log in request successfully sent to backend.", response);
+       alert("Log in successful!")
        $('#removeLogin').empty();
        //$('#removeLogin').remove();
       
        var addLogoutBut = '<h4>'+"You are now logged in!"+'<h4>'+ '<br>'+'<div class="row">'+ '<button class="btn btn-danger logout-button" type="button">'+ "Log out" +'</button>'+'</div>';    
       
-       $('#removeLogin').append(addLogoutBut);
+        $('#removeLogin').append(addLogoutBut);
+        $('.search-div, .delete-div, .list-div, .profile-div').hide();
+        $('.listPillBut').css("background","transparent");
+        $('.add-div').show();
 
       }
     }) 
@@ -157,8 +171,14 @@ $(document).ready(function() {
       },
       //in sign in method, backend geernates cookie, we are creating cookie, so don't need for xhrFields and withCredenitals true.
       success: function(response) {
-       console.log("User log in request successfully sent to backend.", response);
-       // **********hide login status, show profile2**********
+        console.log("User log in request successfully sent to backend.", response);
+        alert("Successful sign up, redirecting to sell page!");
+        $('#removeLogin').empty();
+        var addLogoutBut = '<h4>'+"You are now logged in!"+'<h4>'+ '<br>'+'<div class="row">'+ '<button class="btn btn-danger logout-button" type="button">'+ "Log out" +'</button>'+'</div>';    
+         $('#removeLogin').append(addLogoutBut);
+         $('.search-div, .delete-div, .list-div, .profile-div').hide();
+         $('.listPillBut').css("background","transparent");
+         $('.add-div').show();
       }
     }) 
   }
@@ -184,9 +204,13 @@ $(document).ready(function() {
       withCredentials: true
       },
       dataType: "JSON",
+      error: function(xhr, textStatus, errorThrown){
+        alert("You have to be logged in to post, buddy.");
+      },
       success: function(response) {
+        alert("Listing successful!");
         console.log("Great success", response);
-        lastUpdate();
+       // lastUpdate();
         $('.friTix').val(""),
         $('.satTix').val(""),
         $('.sunTix').val(""),
@@ -211,7 +235,8 @@ $(document).ready(function() {
         $('#all-posts').text(''); 
         response.forEach(function (post) {
           var text  = "<div class='jumbotron postBox well well-sm'>";
-              text += "<li>" + "<span class='property'>date posted: </span>"       + Date(post.dateposted) + "</li>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted   + "</li>";
+              //Date(post.dateposted)
               text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
               text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
               text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
@@ -520,18 +545,58 @@ $(document).ready(function() {
 
 // am i logged in request
 //or just send a login request and see what happens?
-  function loginStatus() {
+  // function loginStatus(callback) {
+  //   $.ajax({
+  //     type: "GET",
+  //     url: 'http://localhost:3002/authenticated',
+  //     dataType: "JSON",
+  //     xhrFields: { 
+  //     withCredentials: true 
+  //     },
+  //     success: function(response, callback) {
+  //      // console.log("Great success, user is logged in.", response);
+  //      if (response.authenticated === true) {
+  //       alert("Login status: logged in!");
+  //       return callback(true);
+  //       } else if (response.authenticated === false) 
+  //       alert("Login status: not logged in!");
+  //       return callback(false);
+  //      }
+  //      // window.location = "/index.html";
+  //     })
+  // }
+  function whichProfile() {
+    if()
+  }
+****
+
+  $(document).on('click','.listButton', function(){
+
+    loginStatus(function(response){
+      if (response.authenticated) {
+        console.log("logged in");
+        listingRequest();
+      } else {
+        console.log("NOT logged in");
+        alert("you have to be logged in to post!");
+      }
+    });
+  });
+****
+
+  function loginStatus(callback) {
     $.ajax({
       type: "GET",
-      url: 'http://localhost:3002/sessions/{logged}',
+      url: 'http://localhost:3002/authenticated',
       dataType: "JSON",
+      xhrFields: { 
+      withCredentials: true 
+      },
       success: function(response) {
-       console.log("Great success, user is logged in.", response);
-       // window.location = "/index.html";
+        callback(response);
       }
-    })
+    });
   }
-
   // function hideProfile() {
   //    $('.delete-div, .list-div, .add-div, .profile-div, search-div').hide();
   //    $('.listPillBut').css("background","transparent");
