@@ -16,9 +16,22 @@ body {
   /*padding: 20px;*/
   /*border-radius: 5px;*/
   font-family: monospace;
+/*  background-color: #C7B58C;
+*/}
+
+.postBox {
+  /*padding: 20px;*/
+  /*border-radius: 5px;*/
+  /*font-family: monospace;*/
   background-color: #C7B58C;
+  margin-bottom: 5px; 
+   /*color: red;*/
 }
 
+#all-posts {
+  list-style: none;
+  padding-left: 0px;
+}
 /*below from faketwitter*/
 
 .vert-offset-top-3{
@@ -42,10 +55,6 @@ h1 {
   /*background-color: blue;*/
 }
 
-#all-posts {
-  list-style: none;
-  padding-left: 15px;
-}
 
 .no-bullet {
   padding-left:0px;

@@ -98,9 +98,13 @@ $(document).ready(function() {
       //in sign in method, backend geernates cookie, we are creating cookie, so don't need for xhrFields and withCredenitals true.
       success: function(response) {
        console.log("User log in request successfully sent to backend.", response);
+       $('#removeLogin').empty();
+       //$('#removeLogin').remove();
+      
+       var addLogoutBut = '<h4>'+"You are currently logged in!"+'<h4>'+ '<br>'+'<div class="row">'+ '<button class="btn btn-danger logout-button" type="button">'+ "Log out" +'</button>'+'</div>';    
+      
+       $('#removeLogin').append(addLogoutBut);
 
-       // TAKE OUT ALL THE SIGN IN OR LOGIN BOXES FROM "PROFILE TAB"
-       // REPLACE WITH LOGOUT BUTTON
       }
     }) 
   }
@@ -174,7 +178,8 @@ $(document).ready(function() {
         console.log("Great listing success", response);
         $('#all-posts').text(''); 
         response.forEach(function (post) {
-          var text  = "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+          var text  = "<div class='jumbotron postBox well well-sm'>";
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
               text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
               text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
               text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
@@ -184,12 +189,26 @@ $(document).ready(function() {
               text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
               text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
               text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
-              text += "<li>" + "***" +"</li>";
+              text += "</div>";
           $('#all-posts').append(text);         
           }); 
       } 
     })
   }
+
+          // var text  = "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
+          //     text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
+          //     text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
+          //     text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
+          //     text += "<li>" + "<span class='property'>fri price (HKD)</span>: "   + post.friprice + "</li>";
+          //     text += "<li>" + "<span class='property'>sat price (HKD)</span>: "   + post.satprice + "</li>";
+          //     text += "<li>" + "<span class='property'>sun price (HKD)</span>: "   + post.sunprice + "</li>";
+          //     text += "<li>" + "<span class='property'>seller username: </span>"   + post.username + "</li>";
+          //     text += "<li>" + "<span class='property'>contact info: </span>: "    + post.contactinfo + "</li>";
+          //     text += "<li>" + "<span class='property'>remarks: </span> "          + post.remarks + "</li>";
+          //     text += "<li>" + "***" +"</li>";
+ 
+
 
   //search request 
   function searchRequest() {
@@ -233,24 +252,6 @@ $(document).ready(function() {
       }
     })
   }
-
-
-
-
-                // var listing = { 
-                //  // "user_id": ObjectId(session.user_id),
-                //   "fritix": request.payload.listing.fritix,
-                //   "sattix": request.payload.listing.sattix,
-                //   "suntiX": request.payload.listing.suntix,
-                //   "friprice": request.payload.listing.friprice,
-                //   "satprice": request.payload.listing.satprice,
-                //   "sunprice": request.payload.listing.sunprice,
-                //   "dateposted": new Date,      
-                //   "username": user.username, 
-                //   "remarks": request.payload.listing.remarks,
-                //   //"contact details":
-                // };
-
 
 // list all from harryquotes
 
@@ -304,11 +305,17 @@ $(document).ready(function() {
       success: function(response) {
        console.log("Great success, user is logged in.", response);
        // window.location = "/index.html";
-
       }
-     // }
     })
   }
+
+  // function hideProfile() {
+  //    $('.delete-div, .list-div, .add-div, .profile-div, search-div').hide();
+  //    $('.listPillBut').css("background","transparent");
+  //    $('.profileTwo-div').show();
+  //  })
+
+
 
 
 //pills

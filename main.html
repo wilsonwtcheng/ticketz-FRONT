@@ -46,8 +46,8 @@
       <li role="presentation" class="listPillBut"><a href="#">Listings</a></li>
       <li role="presentation" class="searchPillBut"><a href="#">Search</a></li>
       <li role="presentation" class="addPillBut"><a href="#">Sell</a></li>
-      <li role="presentation" class="profilePillBut"><a href="#">Profile</a></li>
       <li role="presentation" class="deletePillBut"><a href="#">Delete</a></li>
+      <li role="presentation" class="profilePillBut"><a href="#">Profile</a></li>
     </ul>
 
 
@@ -77,45 +77,6 @@
         <button class="btn btn-default listButton" type="button">Go!</button>
       </div>
 
-      <div class="profile-div">
-        <h3>To make a Listing, please log in or sign up. </h3>
-      
-      <div class="row"> 
-        <div class="col-sm-6"> 
-          <div class="col-xs-12 boxStyle">
-            <strong> Existing user? </strong>Log in
-            <input type="text" class="form-control login-username" placeholder="Email or username">
-            <div class="input-group">
-            <input type="password" class="form-control login-password" placeholder="Password">
-            <span class="input-group-btn">
-              <button class="btn btn-primary login-button" type="button">Log in</button>
-            </span>            
-            </div>
-             <input type="checkbox" aria-label="...">
-              Remember me . Forgot password?
-          </div>
-        </div> 
-        <div class="col-sm-6">
-          <div class="col-xs-12 boxStyle">
-            <strong> New to ticketz? </strong>Sign up
-            <input type="text" class="form-control signup-username" placeholder="Full name">
-            <input type="text" class="form-control signup-email" placeholder="Email">
-            <input type="password" class="form-control signup-password" placeholder="Password">
-            <span class="input-group-btn">
-              <button class="btn btn-warning signup-button" type="button">Sign up for Ticketz</button>
-            </span>
-          </div>
-        </div>
-      </div>  
-      
-        <!-- <div class="input-group ">
-          <input type="text" class="form-control delete-value" placeholder="Input ID for quote deletion here...">
-          <span class="input-group-btn">
-            <button class="btn btn-default deleteButton" type="button">Go!</button>
-          </span>
-        </div> -->
-      </div>
-
       <div class="delete-div">
         <h3>Delete A Quote!</h3>
         <div class="input-group ">
@@ -126,11 +87,52 @@
         </div>
       </div>
 
-    <div class="database-box">
+      <div class="profile-div" id="removeLogin">
+        <h4>To make a Listing, please log in or sign up. </h4>
+      
+        <div class="row"> 
+          <div class="col-sm-6"> 
+            <div class="col-xs-12 boxStyle">
+              <strong> Existing user? </strong>Log in
+              <input type="text" class="form-control login-username" placeholder="Email or username">
+              <div class="input-group">
+              <input type="password" class="form-control login-password" placeholder="Password">
+              <span class="input-group-btn">
+                <button class="btn btn-primary login-button" type="button">Log in</button>
+              </span>            
+              </div>
+               <input type="checkbox" aria-label="...">
+                Remember me . Forgot password?
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="col-xs-12 boxStyle">
+              <strong> New to ticketz? </strong>Sign up
+              <input type="text" class="form-control signup-username" placeholder="Full name">
+              <input type="text" class="form-control signup-email" placeholder="Email">
+              <input type="password" class="form-control signup-password" placeholder="Password">
+              <span class="input-group-btn">
+                <button class="btn btn-warning signup-button" type="button">Sign up for Ticketz</button>
+              </span>
+            </div>
+          </div>
+        </div>  
+      </div>
+<!-- 
+      <div class="profileTwo-div" id="removeLogin">
+        <h4>You are currently logged in!. </h4>
+        <div class="row">           
+         <button class="btn btn-danger logout-button" type="button">Log out</button>
+        </div>    
+      </div>
+ -->
+
+    <div class="database-box" id="all-posts">
       <!-- <h2>Database</h2> -->
-      <ul id="all-posts">        
+    <!--   <ul id="all-posts">        
       </ul>
-    </div>
+ -->    </div>
 
     <br>
 
