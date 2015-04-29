@@ -97,14 +97,6 @@ $(document).ready(function() {
     deleteRequest();
   });
 
-  // $(document).on('click','.listButton', function(){
-  //   listAllRequest();
-  // });
-
-  // $(document).on('click','.deleteButton', function(){
-  //   deleteRequest();
-  // });
-
 //signup request
   function signupRequest() {
     $.ajax({
@@ -161,7 +153,6 @@ $(document).ready(function() {
         $('.search-div, .delete-div, .list-div, .profile-div').hide();
         $('.listPillBut').css("background","transparent");
         $('.add-div').show();
-
       }
     }) 
   }
@@ -248,8 +239,7 @@ $(document).ready(function() {
         $('#all-posts').text(''); 
         response.forEach(function (post) {
           var text  = "<div class='jumbotron postBox well well-sm'>";
-              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted   + "</li>";
-              //Date(post.dateposted)
+              text += "<li>" + "<span class='property'>date posted: </span>"       + post.dateposted + "</li>";
               text += "<li>" + "<span class='property'>fri tix available:</span> " + post.fritix + "</li>";
               text += "<li>" + "<span class='property'>sat tix available:</span> " + post.sattix + "</li>";
               text += "<li>" + "<span class='property'>sun tix available:</span> " + post.suntix + "</li>";
